@@ -1,0 +1,3 @@
+include tracking/config/deployment.ini_tmpl
+recursive-include tracking/public *
+recursive-include tracking/templates *
