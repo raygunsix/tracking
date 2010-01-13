@@ -19,6 +19,7 @@ tracking/config/middleware.py
 tracking/config/routing.py
 tracking/controllers/__init__.py
 tracking/controllers/error.py
+tracking/controllers/pageviews.py
 tracking/lib/__init__.py
 tracking/lib/app_globals.py
 tracking/lib/base.py
@@ -29,6 +30,12 @@ tracking/public/bg.png
 tracking/public/favicon.ico
 tracking/public/index.html
 tracking/public/pylons-logo.gif
+tracking/public/screen.css
+tracking/templates/base.mako
+tracking/templates/pageviews/edit.mako
+tracking/templates/pageviews/index.mako
+tracking/templates/pageviews/new.mako
 tracking/tests/__init__.py
 tracking/tests/test_models.py
 tracking/tests/functional/__init__.py
+tracking/tests/functional/test_pageviews.py

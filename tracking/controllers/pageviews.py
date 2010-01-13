@@ -13,8 +13,8 @@ from pylons.decorators import jsonify
 
 from tracking import model
 
-from formencode.api import Invalid
-from pylons import url
+#from formencode.api import Invalid
+#from pylons import url
 
 
 log = logging.getLogger(__name__)
@@ -55,38 +55,9 @@ class PageviewsController(BaseController):
         Session.save(new_pv)
         Session.commit()
         
-        # need to send json response - @jsonify
-        #return s['content_id'] + " " + s['object_id'] + " " + s['referrer'] + " " + s['search_terms'] + " " + s['user_agent']
-        
     def new(self, format='html'):
         """GET /pageviews/new: Form to create a new item"""
         # url('new_pageview')
-        
-        test = request.GET
-        s = json.dumps({"content_id": request.params['content_id'], "object_id": request.params['object_id'], "referrer": request.params['referrer'], "search_terms": request.params['search_terms'], "user_agent": request.params['user_agent']}, sort_keys=True)
-        return s
-        
-        #pv_q = Session.query(Pageviews)
-        #new_pv = Pageviews()
-        
-        #c.content_id = request.params['content_id']
-        #c.object_id = request.params['object_id']
-        #c.search_terms = request.params['search_terms']
-        #c.referrer = request.params['referrer']
-        #c.user_agent = request.params['user_agent']
-
-        #new_pv.content_id = request.params['content_id']
-        #new_pv.object_id = request.params['object_id']
-        #new_pv.search_terms = request.params['search_terms']
-        #new_pv.referrer = request.params['referrer']
-        #new_pv.user_agent = request.params['user_agent']
-        #new_pv.create_date = datetime.datetime.now()
-        
-        #Session.save(new_pv)
-        #Session.commit()
-        
-        
-        #return render('/pageviews/new.mako') 
 
     def update(self, id):
         """PUT /pageviews/id: Update an existing item"""
