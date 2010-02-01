@@ -1,0 +1,13 @@
+# Can ignore specific files
+.DS_Store
+.project
+.pydevproject
+development.ini
+
+# Use wildcards as well
+*~
+*.swp
+
+# Can also ignore all directories and files in a directory.
+tmp/**/* 
+

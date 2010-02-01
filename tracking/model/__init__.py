@@ -30,14 +30,11 @@ def init_model(engine):
 #
 #orm.mapper(Foo, foo_table)
 pageviews_table = sa.Table('pageviews', meta.metadata,
-               sa.schema.Column('id', sa.types.Integer,
+               sa.schema.Column('st_id', sa.types.Integer,
                    sa.schema.Sequence('page_seq_id', optional=True), primary_key=True),
-                sa.Column('content_id', sa.types.Integer, default=''),
-                sa.Column('object_id', sa.types.Integer, default=''),
-                sa.Column('search_terms', sa.types.String, default=''),
-                sa.Column('referrer', sa.types.String, default=''),
-                sa.Column('user_agent', sa.types.String, default=''),
-                sa.Column('create_date', sa.types.DateTime, default='')
+                sa.Column('st_url', sa.types.String, default=''),
+                sa.Column('st_user_agent', sa.types.String, default=''),
+                sa.Column('st_spider_date', sa.types.DateTime, default='')
                 )
 
 ## Classes for reflected tables may be defined here, but the table and
