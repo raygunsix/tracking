@@ -32,8 +32,8 @@ def init_model(engine):
 pageviews_table = sa.Table('pageviews', meta.metadata,
                sa.schema.Column('st_id', sa.types.Integer,
                    sa.schema.Sequence('page_seq_id', optional=True), primary_key=True),
-                sa.Column('st_url', sa.types.String, default=''),
-                sa.Column('st_user_agent', sa.types.String, default=''),
+                sa.Column('st_user_agent', sa.types.String, length=255, default=''),
+                sa.Column('st_url', sa.types.String, length=8000, default=''),
                 sa.Column('st_spider_date', sa.types.DateTime, default='')
                 )
 
