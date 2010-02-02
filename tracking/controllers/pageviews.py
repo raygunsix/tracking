@@ -37,17 +37,13 @@ class PageviewsController(BaseController):
         # url('pageviews')
     
         jsn = json.loads(request.body)
-        #return s['content_id'] + " " + s['object_id'] + " " + s['referrer'] + " " + s['search_terms'] + " " + s['user_agent']
         
         pv_q = Session.query(Pageviews)
         new_pv = Pageviews()
   
-        new_pv.content_id = jsn['content_id']
-        new_pv.object_id = jsn['object_id']
-        new_pv.search_terms = jsn['search_terms']
-        new_pv.referrer = jsn['referrer']
-        new_pv.user_agent = jsn['user_agent']
-        new_pv.create_date = datetime.datetime.now()
+        new_pv.st_user_agent = jsn['st_user_agent']
+        new_pv.st_url = jsn['st_url']
+        new_pv.st_spider_date = datetime.datetime.now()
         
         Session.save(new_pv)
         Session.commit()
