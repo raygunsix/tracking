@@ -25,9 +25,6 @@ class PageviewsController(BaseController):
     # file has a resource setup:
     #     map.resource('pageview', 'pageviews')
 
-    #def __before__(self):
-    #    self.pv_q = Session.query(Pageviews)
-
     def index(self, format='html'):
         """GET /pageviews: All items in the collection"""
         # url('pageviews')
@@ -40,17 +37,13 @@ class PageviewsController(BaseController):
         # url('pageviews')
     
         jsn = json.loads(request.body)
-        #return s['content_id'] + " " + s['object_id'] + " " + s['referrer'] + " " + s['search_terms'] + " " + s['user_agent']
         
         pv_q = Session.query(Pageviews)
         new_pv = Pageviews()
   
-        new_pv.content_id = jsn['content_id']
-        new_pv.object_id = jsn['object_id']
-        new_pv.search_terms = jsn['search_terms']
-        new_pv.referrer = jsn['referrer']
-        new_pv.user_agent = jsn['user_agent']
-        new_pv.create_date = datetime.datetime.now()
+        new_pv.st_user_agent = jsn['st_user_agent']
+        new_pv.st_url = jsn['st_url']
+        new_pv.st_spider_date = datetime.datetime.now()
         
         Session.save(new_pv)
         Session.commit()
@@ -58,6 +51,7 @@ class PageviewsController(BaseController):
     def new(self, format='html'):
         """GET /pageviews/new: Form to create a new item"""
         # url('new_pageview')
+        pass
 
     def update(self, id):
         """PUT /pageviews/id: Update an existing item"""
@@ -67,6 +61,7 @@ class PageviewsController(BaseController):
         #    h.form(url('pageview', id=ID),
         #           method='put')
         # url('pageview', id=ID)
+        pass
 
     def delete(self, id):
         """DELETE /pageviews/id: Delete an existing item"""
@@ -76,11 +71,14 @@ class PageviewsController(BaseController):
         #    h.form(url('pageview', id=ID),
         #           method='delete')
         # url('pageview', id=ID)
+        pass
 
     def show(self, id, format='html'):
         """GET /pageviews/id: Show a specific item"""
         # url('pageview', id=ID)
+        pass
 
     def edit(self, id, format='html'):
         """GET /pageviews/id/edit: Form to edit an existing item"""
         # url('edit_pageview', id=ID)
+        pass

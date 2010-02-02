@@ -28,7 +28,7 @@ tracking/model/__init__.py
 tracking/model/meta.py
 tracking/public/bg.png
 tracking/public/favicon.ico
-tracking/public/index.html
+tracking/public/index.html.old
 tracking/public/pylons-logo.gif
 tracking/public/screen.css
 tracking/templates/base.mako

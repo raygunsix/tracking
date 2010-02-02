@@ -20,8 +20,8 @@ def make_map():
 
     # CUSTOM ROUTES HERE
 
+    map.connect('/', controller='pageviews', action='index')
     map.resource('pageview', 'pageviews')
-
     map.connect('/{controller}/{action}')
     map.connect('/{controller}/{action}/{id}')
 

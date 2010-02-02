@@ -7,7 +7,7 @@
 % for pv in c.pvs:
 
   <li>
-        ${pv.id} | ${pv.content_id} | ${pv.object_id} | ${pv.search_terms} | ${pv.referrer} | ${pv.user_agent} | ${pv.create_date}
+        ${pv.st_id} | ${pv.st_user_agent} | ${pv.st_url} | ${pv.st_spider_date}
   </li>
 
 % endfor
