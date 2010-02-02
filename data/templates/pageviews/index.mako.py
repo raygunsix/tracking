@@ -3,7 +3,7 @@ UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 5
-_modified_time = 1260944194.6815341
+_modified_time = 1265076111.3949611
 _template_filename='/Users/chris/Documents/Aptana Studio Workspace/tracking/tracking/templates/pageviews/index.mako'
 _template_uri='/pageviews/index.mako'
 _template_cache=cache.Cache(__name__, _modified_time)
@@ -40,19 +40,13 @@ def render_body(context,**pageargs):
             # SOURCE LINE 8
             __M_writer(u'\n  <li>\n        ')
             # SOURCE LINE 10
-            __M_writer(escape(pv.id))
+            __M_writer(escape(pv.st_id))
             __M_writer(u' | ')
-            __M_writer(escape(pv.content_id))
+            __M_writer(escape(pv.st_user_agent))
             __M_writer(u' | ')
-            __M_writer(escape(pv.object_id))
+            __M_writer(escape(pv.st_url))
             __M_writer(u' | ')
-            __M_writer(escape(pv.search_terms))
-            __M_writer(u' | ')
-            __M_writer(escape(pv.referrer))
-            __M_writer(u' | ')
-            __M_writer(escape(pv.user_agent))
-            __M_writer(u' | ')
-            __M_writer(escape(pv.create_date))
+            __M_writer(escape(pv.st_spider_date))
             __M_writer(u'\n  </li>\n\n')
         # SOURCE LINE 14
         __M_writer(u'\n</ul>')
