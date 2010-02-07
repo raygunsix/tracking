@@ -29,7 +29,7 @@ def init_model(engine):
 #    pass
 #
 #orm.mapper(Foo, foo_table)
-pageviews_table = sa.Table('pageviews', meta.metadata,
+t_pageviews = sa.Table('pageviews', meta.metadata,
                sa.schema.Column('st_id', sa.types.Integer,
                    sa.schema.Sequence('page_seq_id', optional=True), primary_key=True),
                 sa.Column('st_user_agent', sa.types.String(255), default=''),
@@ -37,15 +37,15 @@ pageviews_table = sa.Table('pageviews', meta.metadata,
                 sa.Column('st_spider_date', sa.types.DateTime, default='')
                 )
 
+class Pageviews(object):
+    pass
+    
+orm.mapper(Pageviews, t_pageviews)
+
 ## Classes for reflected tables may be defined here, but the table and
 ## mapping itself must be done in the init_model function
 #reflected_table = None
 #
 #class Reflected(object):
 #    pass
-class Pageviews(object):
 
-    def __str(self):
-        return self.article_id
-
-orm.mapper(Pageviews, pageviews_table)
