@@ -7,7 +7,7 @@ except ImportError:
 
 setup(
     name='tracking',
-    version='0.2',
+    version='0.3',
     description='',
     author='',
     author_email='',
