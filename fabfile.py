@@ -32,6 +32,9 @@ def qa():
 def build():
     local("python setup.py bdist_egg")
 
+def upload():
+    put("dist/*.egg", env.releases_path + env.project_name + "-" + d + ".egg")
+
 def install():
     sudo(env.project_path + env.project_name + "/env/bin/easy_install -U " + env.releases_path +  env.project_name + "-" + d + ".egg")
 
@@ -47,7 +50,7 @@ def cleanup():
 def deploy():
    "Deploy code to servers"
    build()
-   put("dist/*.egg", env.releases_path + env.project_name + "-" + d + ".egg")
+   upload()
    install()
    restart_webserver()
    cleanup()
