@@ -7,10 +7,9 @@ except ImportError:
 
 setup(
     name='tracking',
-    version='0.3',
-    description='',
+    description='web spider tracking application',
     author='',
-    author_email='',
+    author_email='administrator@suite101.com',
     url='',
     install_requires=[
         "Pylons<=0.9.7",
