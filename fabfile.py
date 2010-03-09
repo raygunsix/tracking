@@ -13,9 +13,16 @@ from time import gmtime, strftime
 # Or maybe use the git rev string instead?
 # i.e. r = git show --abbrev-commit | grep "^commit";
 #
-#deploy from github?
-#create tag after deploy?
-#install / upgrade egg
+# deploy from github?
+# create tag after deploy?
+#
+# show installed egg version()
+# i.e. /usr/local/pylons/tracking/env/bin/pip freeze | grep tracking
+#
+# setup() function to create releases dir strcture?
+# check() to verify env - paths, apache etc.
+#
+# Make sure we're putting correct egg file - don't use wildcard
 
 # globals
 env.project_name = 'tracking'
@@ -24,8 +31,8 @@ d = strftime("%Y.%m.%d.%H%M%S", gmtime())
 # environments
 def qa():
     env.hosts = ['ubuntu@tracking.dev.suite101.com']
-    env.releases_path = '/home/ubuntu/releases/'
-    env.project_path = '/usr/local/pylons/'
+    env.releases_path = '/home/ubuntu/releases/' + env.project_name + "/"
+    env.python_env_path = '/usr/local/pylons/' + env.project_name + '/env/'
     
 # tasks
 def build():
@@ -35,7 +42,7 @@ def upload():
     put("dist/*.egg", env.releases_path + env.project_name + "-" + d + ".egg")
 
 def install():
-    sudo(env.project_path + env.project_name + "/env/bin/easy_install -U " + env.releases_path +  env.project_name + "-" + d + ".egg")
+    sudo(env.python_env_path + "bin/easy_install -U " + env.releases_path + env.project_name + "-" + d + ".egg")
 
 def restart_webserver():
     "Restart the web server"
