@@ -10,15 +10,12 @@ from time import gmtime, strftime
 #
 # Add milliseconds to datetime stamp
 # strftime("%Y%m%d-%H%M%S%f") doesn't seem to work... not sure why
-
-
-#deploy from github
-#create tag 
-#build egg from src
-#copy new egg to server
+# Or maybe use the git rev string instead?
+# i.e. r = git show --abbrev-commit | grep "^commit";
+#
+#deploy from github?
+#create tag after deploy?
 #install / upgrade egg
-#restart apache
-#create tag 
 
 # globals
 env.project_name = 'tracking'
@@ -29,25 +26,29 @@ def qa():
     #env.fab_user = 'ubuntu'
     env.hosts = ['ubuntu@tracking.dev.suite101.com']
     env.releases_path = '/home/ubuntu/releases/'
-
+    env.project_path = '/usr/local/pylons/'
+    
 # tasks
 def build():
     local("python setup.py bdist_egg")
 
-def cleanup():
-    local("rm -rf build/*")
-    #local("rm -rf dist/*.egg")
-
+def install():
+    sudo(env.project_path + env.project_name + "/env/bin/easy_install -U " + env.releases_path +  env.project_name + "-" + d + ".egg")
 
 def restart_webserver():
     "Restart the web server"
     sudo('/etc/init.d/apache2 restart')
 
+def cleanup():
+    local("rm -rf build/*")
+    local("rm -rf dist/*.egg")
 
 # deployment
 def deploy():
    "Deploy code to servers"
    build()
    put("dist/*.egg", env.releases_path + env.project_name + "-" + d + ".egg")
+   install()
+   restart_webserver()
    cleanup()
 
