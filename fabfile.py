@@ -19,11 +19,10 @@ from time import gmtime, strftime
 
 # globals
 env.project_name = 'tracking'
-d = strftime("%Y-%m-%d-%H%M%S", gmtime())
+d = strftime("%Y.%m.%d.%H%M%S", gmtime())
 
 # environments
 def qa():
-    #env.fab_user = 'ubuntu'
     env.hosts = ['ubuntu@tracking.dev.suite101.com']
     env.releases_path = '/home/ubuntu/releases/'
     env.project_path = '/usr/local/pylons/'
