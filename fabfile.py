@@ -51,6 +51,7 @@ def restart_webserver():
 def cleanup():
     local("rm -rf build/*")
     local("rm -rf dist/*.egg")
+    local("rm -rf *.egg")    
 
 # deployment
 def deploy():
