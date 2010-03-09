@@ -30,7 +30,7 @@ d = strftime("%Y.%m.%d.%H%M%S", gmtime())
 
 # environments
 def qa():
-    env.hosts = ['ubuntu@tracking.dev.suite101.com']
+    env.hosts = ['ubuntu@tracking.qa.suite101.com']
     env.releases_path = '/home/ubuntu/releases/' + env.project_name + "/"
     env.python_env_path = '/usr/local/pylons/' + env.project_name + '/env/'
     
