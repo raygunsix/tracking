@@ -1,4 +1,17 @@
-Installation and Setup
+======================
+Deployment
+======================
+
+Deploy the tracking application as follows:
+
+fab <environment> deploy
+
+For example:
+
+fab qa deploy
+
+======================
+Manual Installation and Setup
 ======================
 
 Install ``tracking`` using easy_install::
