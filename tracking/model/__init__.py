@@ -4,8 +4,7 @@ from sqlalchemy import orm
 from sqlalchemy.ext.declarative import declarative_base
 
 from tracking.model import meta
-
-_Base = declarative_base()
+from meta import Base
 
 def now():
     return datetime.datetime.now()
@@ -18,15 +17,20 @@ def init_model(engine):
     #                           autoload_with=engine)
     #orm.mapper(Reflected, reflected_table)
     #
-    meta.Session.configure(bind=engine)
+
+    sm = orm.sessionmaker(bind=engine)
+
     meta.engine = engine
+    meta.Session = orm.scoped_session(sm)
+
 
 
 ## Non-reflected tables may be defined and mapped at module level
 # Using SQLAlchemy 0.5 optional declarative syntax
 # More info here: http://pylonshq.com/docs/en/0.9.7/models/
+# and here: http://pylonshq.com/pasties/1000
 
-class Pageviews(_Base):
+class Pageviews(Base):
     __tablename__ = "pageviews"
 
     st_id = sa.Column(sa.types.Integer, sa.Sequence('page_seq_id', optional=True), primary_key=True)
