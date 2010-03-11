@@ -1,8 +1,11 @@
 """The application's model objects"""
 import sqlalchemy as sa
 from sqlalchemy import orm
+from sqlalchemy.ext.declarative import declarative_base
 
 from tracking.model import meta
+
+_Base = declarative_base()
 
 def now():
     return datetime.datetime.now()
@@ -20,27 +23,17 @@ def init_model(engine):
 
 
 ## Non-reflected tables may be defined and mapped at module level
-#foo_table = sa.Table("Foo", meta.metadata,
-#    sa.Column("id", sa.types.Integer, primary_key=True),
-#    sa.Column("bar", sa.types.String(255), nullable=False),
-#    )
-#
-#class Foo(object):
-#    pass
-#
-#orm.mapper(Foo, foo_table)
-t_pageviews = sa.Table('pageviews', meta.metadata,
-               sa.schema.Column('st_id', sa.types.Integer,
-                   sa.schema.Sequence('page_seq_id', optional=True), primary_key=True),
-                sa.Column('st_user_agent', sa.types.String(255), default=''),
-                sa.Column('st_url', sa.types.String(8000), default=''),
-                sa.Column('st_spider_date', sa.types.DateTime, default='')
-                )
+# Using SQLAlchemy 0.5 optional declarative syntax
+# More info here: http://pylonshq.com/docs/en/0.9.7/models/
 
-class Pageviews(object):
-    pass
+class Pageviews(_Base):
+    __tablename__ = "pageviews"
+
+    st_id = sa.Column(sa.types.Integer, sa.Sequence('page_seq_id', optional=True), primary_key=True)
+    st_user_agent = sa.Column(sa.types.String(255), default='')
+    st_url = sa.Column(sa.types.String(8000), default='')
+    st_spider_date = sa.Column(sa.types.DateTime, default='')
     
-orm.mapper(Pageviews, t_pageviews)
 
 ## Classes for reflected tables may be defined here, but the table and
 ## mapping itself must be done in the init_model function
