@@ -6,9 +6,6 @@ from sqlalchemy.ext.declarative import declarative_base
 from tracking.model import meta
 from meta import Base
 
-def now():
-    return datetime.datetime.now()
-
 def init_model(engine):
     """Call me before using any of the tables or classes in the model"""
     ## Reflected tables must be defined and mapped here
