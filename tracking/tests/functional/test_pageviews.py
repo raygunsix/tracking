@@ -4,6 +4,10 @@ import simplejson as json
  
 from sqlalchemy import and_
 
+from tracking.model import Pageviews
+from tracking.model import meta
+from tracking.model.meta import Session
+
 class TestPageviewsController(TestController):
 
     def test_index(self):
@@ -17,7 +21,7 @@ class TestPageviewsController(TestController):
         """Tests that json data can be posted and saved to the database"""
         
         response = self.app.post(
-            url=url_for(controller='pageviewss', action='create'),
+            url=url_for(controller='pageviews', action='create'),
             params=json.dumps({
                 'st_user_agent':'mozilla/5.0 (compatible; googlebot/2.1; +http://www.google.com/bot.html)',
                 'st_url':'cookingresources.suite101.com/topiclist/article.cfm/ban_the_gut_bomb',
