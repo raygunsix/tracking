@@ -10,7 +10,33 @@ class TestPageviewsController(TestController):
         response = self.app.get(url('formatted_pageviews', format='xml'))
 
     def test_create(self):
-        response = self.app.post(url('pageviews'))
+        """Tests that json data can be posted and saved to the database"""
+        
+        response = self.app.post(
+            url=url_for(controller='pageviewss', action='create'),
+            params=json.dumps({
+                'st_user_agent':'mozilla/5.0 (compatible; googlebot/2.1; +http://www.google.com/bot.html)',
+                'st_url':'cookingresources.suite101.com/topiclist/article.cfm/ban_the_gut_bomb',
+            }),
+            extra_environ=dict(CONTENT_TYPE='application/json')
+        )
+        self.failUnlessEqual(response.status, '200 OK')
+        
+        # Test the data is saved in the database (we use the engine API to
+        # ensure that all the data really has been saved and isn't being returned
+        # from the session)
+        connection = meta.engine.connect()
+        result = connection.execute(
+            """
+            SELECT keyword, source
+            FROM keyphrases
+            """,
+        )
+        connection.close()
+        row = result.fetchone()
+        assert row.keyword == 'mozilla/5.0 (compatible; googlebot/2.1; +http://www.google.com/bot.html)'
+        assert row.source == 'cookingresources.suite101.com/topiclist/article.cfm/ban_the_gut_bomb'        
+        
 
     def test_new(self):
         response = self.app.get(url('new_pageview'))
