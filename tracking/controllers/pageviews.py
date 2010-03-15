@@ -45,7 +45,7 @@ class PageviewsController(BaseController):
         new_pv.st_url = jsn['st_url']
         new_pv.st_spider_date = datetime.datetime.now()
         
-        Session.save(new_pv)
+        Session.add(new_pv)
         Session.commit()
         
     def new(self, format='html'):
