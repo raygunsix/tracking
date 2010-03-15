@@ -28,9 +28,7 @@ class PageviewsController(BaseController):
     def index(self, format='html'):
         """GET /pageviews: All items in the collection"""
         # url('pageviews')
-        pv_q = Session.query(Pageviews)
-        c.pvs = pv_q.all()
-        return render('/pageviews/index.mako')
+        pass
         
     def create(self):
         """POST /pageviews: Create a new item"""
