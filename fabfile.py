@@ -35,6 +35,9 @@ def qa():
     env.python_env_path = '/usr/local/pylons/' + env.project_name + '/env/'
     
 # tasks
+def test():
+    local("nosetests")
+
 def build():
     local("python setup.py bdist_egg")
 
@@ -56,6 +59,7 @@ def cleanup():
 # deployment
 def deploy():
    "Deploy code to servers"
+   test()
    build()
    upload()
    install()
