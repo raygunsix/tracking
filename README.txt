@@ -10,6 +10,13 @@ For example:
 
 fab qa deploy
 
+Available Commands:
+
+fab qa deploy       Deploys to tracking.qa.suite101.com
+fab live deploy     Deploys to tracking.suite101.com
+
+fab test            Runs unit tests locally
+
 ======================
 Manual Installation and Setup
 ======================

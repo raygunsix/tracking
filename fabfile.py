@@ -33,6 +33,11 @@ def qa():
     env.hosts = ['ubuntu@tracking.qa.suite101.com']
     env.releases_path = '/home/ubuntu/releases/' + env.project_name + "/"
     env.python_env_path = '/usr/local/pylons/' + env.project_name + '/env/'
+
+def live():
+    env.hosts = ['ubuntu@tracking.suite101.com']
+    env.releases_path = '/home/ubuntu/releases/' + env.project_name + "/"
+    env.python_env_path = '/usr/local/pylons/' + env.project_name + '/env/'
     
 # tasks
 def test():
