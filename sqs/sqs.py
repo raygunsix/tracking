@@ -14,13 +14,13 @@ from boto.sqs.message import Message
 
 # Set up constants
  
-AWS_ACCESS_KEY_ID = "AKIAJYFRU4OEDOHDRBHQ"
-AWS_SECRET_ACCESS_KEY = "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"
-QUEUE_NAME = "tracking"
-DB_HOST = "localhost"
-DB_NAME = "tracking"
-DB_USER = "webserver"
-DB_PASSWORD = "suite101"
+AWS_ACCESS_KEY_ID = ""
+AWS_SECRET_ACCESS_KEY = ""
+QUEUE_NAME = ""
+DB_HOST = ""
+DB_NAME = ""
+DB_USER = ""
+DB_PASSWORD = ""
 
 # Set up connections to AWS services
  
