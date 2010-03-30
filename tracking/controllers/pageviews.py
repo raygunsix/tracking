@@ -32,6 +32,7 @@ class PageviewsController(BaseController):
         
     def create(self):
         """POST /pageviews: Create a new item"""
+        """This intrerface is deprecated - data should be sent via AWS SQS"""
         # url('pageviews')
     
         jsn = json.loads(request.body)
