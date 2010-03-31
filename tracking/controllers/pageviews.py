@@ -35,9 +35,11 @@ class PageviewsController(BaseController):
         """This intrerface is deprecated - data should be sent via AWS SQS"""
         # url('pageviews')
     
-        jsn = json.loads(request.body)
-        
-        pv_q = Session.query(Pageviews)
+	try:
+	    jsn = json.loads(request.body)
+        except:
+            abort(status_code=400, detail="Could not parse JSON")
+
         new_pv = Pageviews()
   
         new_pv.st_user_agent = jsn['st_user_agent']
@@ -45,7 +47,11 @@ class PageviewsController(BaseController):
         new_pv.st_spider_date = datetime.datetime.now()
         
         Session.add(new_pv)
-        Session.commit()
+        
+	try:
+	    Session.commit()
+        except:
+            abort(status_code=500, detail="Could not save data")
         
     def new(self, format='html'):
         """GET /pageviews/new: Form to create a new item"""
