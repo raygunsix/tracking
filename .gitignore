@@ -3,6 +3,8 @@
 .project
 .pydevproject
 development.ini
+test.ini
+manage.py
 
 # Use wildcards as well
 *~
