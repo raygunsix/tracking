@@ -41,7 +41,7 @@ def setup_app(command, conf, vars):
                 env=model, style=NamedDataStyle(),
                 engine=meta.engine)
             
-        data = db.data(KeyphrasesData)
+        data = db.data(PageviewsData)
         log.info("Loading sample data...")
         data.setup()
         
