@@ -1,7 +1,6 @@
 from sqlalchemy import *
 from migrate import *
 
-from sqlalchemy.ext.declarative import declarative_base
 
 meta = MetaData(migrate_engine)
 pageviews = Table('pageviews', meta,
