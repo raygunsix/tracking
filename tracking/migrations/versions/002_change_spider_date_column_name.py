@@ -2,28 +2,34 @@ from sqlalchemy import *
 from migrate import *
 import migrate.changeset
 
+from sqlalchemy.ext.declarative import declarative_base
+
 meta = MetaData(migrate_engine)
+Base = declarative_base(metadata=meta)
 
-pageviews_new = Table('pageviews', meta,
-                Column('st_id', Integer, Sequence('page_seq_id', optional=True), primary_key=True),
-                Column('st_user_agent', String(255), default=''),
-                Column('st_url', String(8000), default=''),
-                Column('spider_date', DateTime, default=''),
-                )
+class PageviewsNew(Base):
+    __tablename__ = "pageviews"
 
-pageviews_old = Table('pageviews', meta,
-                Column('st_id', Integer, Sequence('page_seq_id', optional=True), primary_key=True),
-                Column('st_user_agent', String(255), default=''),
-                Column('st_url', String(8000), default=''),
-                Column('st_spider_date', DateTime, default=''),
-                useexisting=True
-                )
+    st_id = Column(Integer, Sequence('page_seq_id', optional=True), primary_key=True)
+    st_user_agent = Column(String(255), default='')
+    st_url = Column(String(8000), default='')
+    spider_date = Column(DateTime, default='')
+
+class PageviewsOld(Base):
+    __tablename__ = "pageviews"
+    __table_args__ = (
+            {'useexisting':True}
+            )
+
+    st_id = Column(Integer, Sequence('page_seq_id', optional=True), primary_key=True)
+    st_user_agent = Column(String(255), default='')
+    st_url = Column(String(8000), default='')
+    st_spider_date = Column(DateTime, default='')
 
 def upgrade():
     # Upgrade operations go here.
-    pageviews_old.c.st_spider_date.alter(name='spider_date')
+    PageviewsOld.__table__.c.st_spider_date.alter(name='spider_date')
 
 def downgrade():
     # Operations to reverse the above upgrade go here.
-    #col.alter(name='st_spider_date')
-    pageviews_new.c.spider_date.alter(name='st_spider_date')
+    PageviewsNew.__table__.c.spider_date.alter(name='st_spider_date')
