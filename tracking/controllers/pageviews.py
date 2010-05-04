@@ -42,8 +42,8 @@ class PageviewsController(BaseController):
 
         new_pv = Pageviews()
   
-        new_pv.user_agent = jsn['st_user_agent']
-        new_pv.url = jsn['st_url']
+        new_pv.user_agent = jsn['user_agent']
+        new_pv.url = jsn['url']
         new_pv.spider_date = datetime.datetime.now()
         
         Session.add(new_pv)
