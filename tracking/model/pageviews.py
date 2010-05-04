@@ -1,7 +1,7 @@
 import sqlalchemy as sa
 
 # import base from meta class
-from sqlalchemy.ext.declarative import declarative_base
+from tracking.model.meta import Base 
 
 # Using SQLAlchemy 0.5 optional declarative syntax
 # More info here: http://pylonshq.com/docs/en/0.9.7/models/
