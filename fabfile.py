@@ -26,18 +26,19 @@ from time import gmtime, strftime
 
 # globals
 env.project_name = 'tracking'
+env.pylons_path = '/usr/local/pylons/'
 d = strftime("%Y.%m.%d.%H%M%S", gmtime())
 
 # environments
 def qa():
     env.hosts = ['ubuntu@tracking.qa.suite101.com']
     env.releases_path = '/home/ubuntu/releases/' + env.project_name + "/"
-    env.python_env_path = '/usr/local/pylons/' + env.project_name + '/env/'
+    env.python_env_path = env.pylons_path + env.project_name + '/env/'
 
 def live():
     env.hosts = ['ubuntu@tracking.suite101.com']
     env.releases_path = '/home/ubuntu/releases/' + env.project_name + "/"
-    env.python_env_path = '/usr/local/pylons/' + env.project_name + '/env/'
+    env.python_env_path = env.pylons_path + env.project_name + '/env/'
     
 # tasks
 def test():
@@ -48,9 +49,13 @@ def build():
 
 def upload():
     put("dist/*.egg", env.releases_path + env.project_name + "-" + d + ".egg")
+    put('migrations/*', env.pylons_path + env.project_name + '/migrations/' )
 
 def install():
     sudo(env.python_env_path + "bin/easy_install -U " + env.releases_path + env.project_name + "-" + d + ".egg")
+
+def migrate():
+    pass
 
 def restart_webserver():
     "Restart the web server"
