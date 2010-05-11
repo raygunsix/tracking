@@ -49,7 +49,7 @@ def build():
 
 def upload():
     put("dist/*.egg", env.releases_path + env.project_name + "-" + d + ".egg")
-    put('migrations/*', env.pylons_path + env.project_name + '/migrations/' )
+    put('migrations/versions/*', env.pylons_path + env.project_name + '/migrations/versions/' )
 
 def install():
     sudo(env.python_env_path + "bin/easy_install -U " + env.releases_path + env.project_name + "-" + d + ".egg")
