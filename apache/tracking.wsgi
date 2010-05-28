@@ -8,7 +8,7 @@ os.environ['PYTHON_EGG_CACHE'] = '/tmp/python-eggs'
 
 from paste.script.util.logging_config import fileConfig
 
-fileConfig('/usr/local/pylons/tracking/development.ini')
+fileConfig('/usr/local/pylons/tracking/production.ini')
 
 from paste.deploy import loadapp
 
