@@ -17,6 +17,7 @@ setup(
         "Fixture<=1.3.1",
         "sqlalchemy-migrate<=0.5.4",
         "Boto",
+        "pymongo",
     ],
     setup_requires=["PasteScript>=1.6.3"],
     packages=find_packages(exclude=['ez_setup']),
