@@ -10,8 +10,8 @@ from tracking.model.meta import Base
 class Pageviews(Base):
     __tablename__ = "pageviews"
 
-    id = sa.Column(sa.types.Integer, sa.Sequence('page_seq_id', optional=True), primary_key=True)
-    user_agent = sa.Column(sa.types.String(255), default='')
-    url = sa.Column(sa.types.String(8000), default='')
-    spider_date = sa.Column(sa.types.DateTime, default='')
+    st_id = sa.Column(sa.types.Integer, sa.Sequence('page_seq_id', optional=True), primary_key=True)
+    st_user_agent = sa.Column(sa.types.String(255), default='')
+    st_url = sa.Column(sa.types.String(8000), default='')
+    st_spider_date = sa.Column(sa.types.DateTime, default='')
 
