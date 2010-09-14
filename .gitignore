@@ -3,17 +3,19 @@
 .project
 .pydevproject
 development.ini
+test.ini
+manage.py
 
 # Use wildcards as well
 *~
 *.swp
 *.pyc
 *.kpf
-*.egg-info
 *.db
 
 # Can also ignore all directories and files in a directory.
 tmp/**/*
 dist/*
 build/*
+*.egg-info/*
 

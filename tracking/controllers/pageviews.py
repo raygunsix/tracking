@@ -1,9 +1,14 @@
 import logging
 import datetime
+import pymongo
 import simplejson as json
 
 from pylons import request, response, session, tmpl_context as c
 from pylons.controllers.util import abort, redirect_to
+
+from paste.deploy import appconfig
+from pylons import config
+from tracking.config.environment import load_environment
 
 from tracking.lib.base import BaseController, render
 
@@ -13,11 +18,16 @@ from pylons.decorators import jsonify
 
 from tracking import model
 
+from pymongo import Connection
+
 #from formencode.api import Invalid
 #from pylons import url
 
 
 log = logging.getLogger(__name__)
+
+mongodb_host = config['mongodb_host']
+mongodb_port = int(config['mongodb_port'])
 
 class PageviewsController(BaseController):
     """REST Controller styled on the Atom Publishing Protocol"""
@@ -32,19 +42,46 @@ class PageviewsController(BaseController):
         
     def create(self):
         """POST /pageviews: Create a new item"""
+        """This intrerface is deprecated - data should be sent via AWS SQS"""
         # url('pageviews')
     
-        jsn = json.loads(request.body)
+	try:
+	    jsn = json.loads(request.body)
+        except:
+            abort(status_code=500, detail="Could not parse JSON")
         
-        pv_q = Session.query(Pageviews)
+        # Write to postgreSQL via SQLAlchemy
+        
         new_pv = Pageviews()
   
-        new_pv.st_user_agent = jsn['st_user_agent']
-        new_pv.st_url = jsn['st_url']
-        new_pv.st_spider_date = datetime.datetime.now()
+        new_pv.user_agent = jsn['st_user_agent']
+        new_pv.url = jsn['st_url']
+        new_pv.spider_date = datetime.datetime.now()
         
         Session.add(new_pv)
-        Session.commit()
+        
+	try:
+	    Session.commit()
+        except:
+            abort(status_code=500, detail="Could not save data to PostgreSQL")
+        
+        # Write to mongodb
+        
+        connection = Connection()
+        connection = Connection(mongodb_host, mongodb_port)
+
+        db = connection.tracking
+        
+        new_pv = {"user_agent": jsn['st_user_agent'],
+            "url": jsn['st_url'],
+             "date": datetime.datetime.utcnow()}
+        
+        pv = db.pageviews
+        
+        try:
+	    pv.insert(new_pv)
+        except:
+            abort(status_code=500, detail="Could not save data to MongoDB")
         
     def new(self, format='html'):
         """GET /pageviews/new: Form to create a new item"""

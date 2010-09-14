@@ -48,11 +48,11 @@ def get_msg():
         
         jsn = json.loads(msg.get_body())
         
-        st_user_agent = jsn['st_user_agent']
-        st_url = jsn['st_url']
-        st_spider_date = datetime.datetime.now()
+        user_agent = jsn['user_agent']
+        url = jsn['url']
+        spider_date = datetime.datetime.now()
 
-	sql = "INSERT INTO pageviews(st_user_agent, st_url, st_spider_date) VALUES ('" + st_user_agent + "', '" + st_url + "', '" + str(st_spider_date) + "')"
+	sql = "INSERT INTO pageviews(user_agent, url, spider_date) VALUES ('" + user_agent + "', '" + url + "', '" + str(spider_date) + "')"
         cursor.execute(sql)
         connection.commit()
         
