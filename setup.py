@@ -15,7 +15,6 @@ setup(
         "Pylons<=0.9.7",
         "SQLAlchemy<=0.5.8",
         "Fixture<=1.3.1",
-        "sqlalchemy-migrate<=0.5.4",
         "Boto",
         "pymongo",
     ],
