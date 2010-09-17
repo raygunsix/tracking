@@ -42,8 +42,8 @@ class TestPageviewsController(TestController):
         )
         connection.close()
         row = result.fetchone()
-        assert row.user_agent == 'mozilla/5.0 (compatible; googlebot/2.1; +http://www.google.com/bot.html)'
-        assert row.url == 'cookingresources.suite101.com/topiclist/article.cfm/ban_the_gut_bomb'        
+        assert row.st_user_agent == 'mozilla/5.0 (compatible; googlebot/2.1; +http://www.google.com/bot.html)'
+        assert row.st_url == 'cookingresources.suite101.com/topiclist/article.cfm/ban_the_gut_bomb'        
         
 
     def test_new(self):
