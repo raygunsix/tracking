@@ -69,7 +69,7 @@ class PageviewsController(BaseController):
 
         connection = Connection(mongodb_host, mongodb_port)
 
-        db = connection.tracking
+        db = connection.spider_tracking
         
         new_pv = {"user_agent": jsn['st_user_agent'],
             "url": jsn['st_url'],
