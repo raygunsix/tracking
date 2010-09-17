@@ -66,8 +66,7 @@ class PageviewsController(BaseController):
             abort(status_code=500, detail="Could not save data to PostgreSQL")
         
         # Write to mongodb
-        
-        connection = Connection()
+
         connection = Connection(mongodb_host, mongodb_port)
 
         db = connection.tracking
