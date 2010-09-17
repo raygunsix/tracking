@@ -23,8 +23,8 @@ class TestPageviewsController(TestController):
         response = self.app.post(
             url=url_for(controller='pageviews', action='create'),
             params=json.dumps({
-                'user_agent':'mozilla/5.0 (compatible; googlebot/2.1; +http://www.google.com/bot.html)',
-                'url':'cookingresources.suite101.com/topiclist/article.cfm/ban_the_gut_bomb',
+                'st_user_agent':'mozilla/5.0 (compatible; googlebot/2.1; +http://www.google.com/bot.html)',
+                'st_url':'cookingresources.suite101.com/topiclist/article.cfm/ban_the_gut_bomb',
             }),
             extra_environ=dict(CONTENT_TYPE='application/json')
         )
@@ -36,7 +36,7 @@ class TestPageviewsController(TestController):
         connection = meta.engine.connect()
         result = connection.execute(
             """
-            SELECT user_agent, url
+            SELECT st_user_agent, st_url
             FROM pageviews
             """,
         )
