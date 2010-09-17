@@ -66,11 +66,10 @@ class PageviewsController(BaseController):
             abort(status_code=500, detail="Could not save data to PostgreSQL")
         
         # Write to mongodb
-        
-        connection = Connection()
+
         connection = Connection(mongodb_host, mongodb_port)
 
-        db = connection.tracking
+        db = connection.spider_tracking
         
         new_pv = {"user_agent": jsn['st_user_agent'],
             "url": jsn['st_url'],

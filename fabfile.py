@@ -31,8 +31,8 @@ d = strftime("%Y.%m.%d.%H%M%S", gmtime())
 
 # environments
 def qa():
-    env.hosts = ['ubuntu@tracking.qa.suite101.com']
-    env.releases_path = '/home/ubuntu/releases/' + env.project_name + "/"
+    env.hosts = ['root@tracking.qa.suite101.com']
+    env.releases_path = '/root/releases/' + env.project_name + "/"
     env.python_env_path = env.pylons_path + env.project_name + '/env/'
 
 def live():
@@ -41,6 +41,37 @@ def live():
     env.python_env_path = env.pylons_path + env.project_name + '/env/'
     
 # tasks
+
+def setup():
+
+    print ("Creating directories")
+    run("mkdir -p " + env.pylons_path + env.project_name + "/apache/")  
+    run("mkdir " + env.pylons_path + env.project_name + "/data/")
+    run("mkdir " + env.pylons_path + env.project_name + "/downloads/")
+    run("mkdir " + env.pylons_path + env.project_name + "/lib/")
+    run("mkdir " + env.pylons_path + env.project_name + "/scripts/")
+    run("mkdir " + env.pylons_path + env.project_name + "/sqs/")
+    run("mkdir -p /root/releases/" + env.project_name + "/")
+    run("mkdir -p /var/log/" + env.project_name + "/")
+    
+    # Set permissions
+    run("chmod -R a+rwx " + env.pylons_path + env.project_name + "/data/")
+    
+    # Create virtual env
+    run("virtualenv --no-site-packages " + env.pylons_path + env.project_name + "/env/")
+    
+    # Install Python PostgreSQL driver into virtual environment
+    run(env.python_env_path + "bin/easy_install psycopg2")
+    
+    # Print post-setup tasks
+    print (" ")
+    print ("== POST SETUP TASKS ==")
+    print ("* Deploy the app")
+    print ("* Add pylons config file")
+    print ("* Setup database and users")
+    print ("* Install the pylons app - 'python setup.py develop'")
+    print ("* Run app set up - 'paster setup-app'")
+    
 def test():
     local("nosetests")
 
@@ -49,17 +80,13 @@ def build():
 
 def upload():
     put("dist/*.egg", env.releases_path + env.project_name + "-" + d + ".egg")
-    put('migrations/versions/*', env.pylons_path + env.project_name + '/migrations/versions/' )
 
 def install():
-    sudo(env.python_env_path + "bin/easy_install -U " + env.releases_path + env.project_name + "-" + d + ".egg")
-
-def migrate():
-    pass
+    run(env.python_env_path + "bin/easy_install -U " + env.releases_path + env.project_name + "-" + d + ".egg")
 
 def restart_webserver():
     "Restart the web server"
-    sudo('/etc/init.d/apache2 restart')
+    run('service apache2 restart')
 
 def cleanup():
     local("rm -rf build/*")
@@ -69,7 +96,7 @@ def cleanup():
 # deployment
 def deploy():
    "Deploy code to servers"
-   test()
+   #test()
    build()
    upload()
    install()
