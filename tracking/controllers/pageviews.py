@@ -23,11 +23,9 @@ from pymongo import Connection
 #from formencode.api import Invalid
 #from pylons import url
 
+mongodb_conn = config['mongodb_conn']
 
 log = logging.getLogger(__name__)
-
-mongodb_host = config['mongodb_host']
-mongodb_port = int(config['mongodb_port'])
 
 class PageviewsController(BaseController):
     """REST Controller styled on the Atom Publishing Protocol"""
@@ -67,7 +65,7 @@ class PageviewsController(BaseController):
         
         # Write to mongodb
 
-        connection = Connection(mongodb_host, mongodb_port)
+        connection = Connection(mongodb_conn)
 
         db = connection.spider_tracking
         
@@ -75,7 +73,7 @@ class PageviewsController(BaseController):
             "url": jsn['st_url'],
              "date": datetime.datetime.utcnow()}
         
-        pv = db.pageviews
+        pv = db.pageviews_com
         
         try:
 	    pv.insert(new_pv)
